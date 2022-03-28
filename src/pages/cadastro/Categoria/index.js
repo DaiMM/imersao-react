@@ -1,57 +1,58 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import FormField from "../../../comoponents/FormField";
 import PageDefault from "../../../comoponents/PageDefault";
 
 function CadastroCategoria (){
-    const [categorias, setCategorias] = useState(["teste"])
-    
     const valoresIniciais = {
-        nome:'Categoria Inicial',
-        descricao:'Descrição Inicial',
-        cor:'#000'
+        nome:'',
+        descricao:'',
+        cor:'#000000',
     }
+    const [categorias, setCategorias] = useState([])
     const [values, setValues] = useState(valoresIniciais)
+    
 
     function setValue(chave, valor) {
         setValues({
             ...values,
+            [chave]: valor, // nome: 'valor'
         })
+    }
+
+    function handleChange(infoDoEvento){
+        setValue(
+            infoDoEvento.target.getAttribute('name'),
+            infoDoEvento.target.value
+        );
     }
 
     return(
         <PageDefault>
             <h1>Cadastro de Categoria: {values.name}</h1>
-            
+
+            <React.StrictMode>
             <form onSubmit={function handleSubmit(infoDoEvento){
                 infoDoEvento.preventDefault();
-                setValues([
+                setCategorias([
                     ...categorias, 
                     values
                 ]);
+                setValues(valoresIniciais)
                 
             }}>
-                <div>
-                    <label>
-                        Nome da Categoria:
-                        <input
-                            type="text"
-                            value={values.nome}
-                            onChange= {(function trasInfoDoEvento(infoDoEvento){
-                                
-                            } )}
-                        />
-                    </label>
-                </div>
-
+               <FormField 
+                value={values.nome}
+                onChange={handleChange}
+               />
                 <div>
                     <label>
                         Descrição:
                         <textarea
                             type="text"
                             value={values.descricao}
-                            onChange= {(function trasInfoDoEvento(infoDoEvento){
-                                
-                            } )}
+                            name="descricao"
+                            onChange= {handleChange}
                         />
                     </label>
                 </div>
@@ -62,9 +63,8 @@ function CadastroCategoria (){
                         <input
                             type="color"
                             value={values.cor}
-                            onChange= {(function trasInfoDoEvento(infoDoEvento){
-                                
-                            } )}
+                            name="cor"
+                            onChange= {handleChange}
                         />
                     </label>
                 </div>
@@ -74,16 +74,18 @@ function CadastroCategoria (){
                     Cadastrar
                 </button>
             </form>
+            </React.StrictMode>
 
             <ul>
                 {categorias.map((categoria, indice) => {
                    return(
                     <li key={`${indice}`}> 
-                        {categoria}
+                        {categoria.nome}
                     </li>
                    )
                 }) }
             </ul>
+            
 
 
            
