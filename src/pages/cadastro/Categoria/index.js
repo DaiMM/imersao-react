@@ -29,7 +29,7 @@ function CadastroCategoria (){
 
     return(
         <PageDefault>
-            <h1>Cadastro de Categoria: {values.name}</h1>
+            <h1>Cadastro de Categoria: {values.nome}</h1>
 
             <React.StrictMode>
             <form onSubmit={function handleSubmit(infoDoEvento){
@@ -42,32 +42,28 @@ function CadastroCategoria (){
                 
             }}>
                <FormField 
-                value={values.nome}
-                onChange={handleChange}
+                    label="Nome da Categoria: "
+                    type="text"
+                    value={values.nome}
+                    name="nome"
+                    onChange={handleChange}
+                    placeholder="Nome da categoria"
                />
-                <div>
-                    <label>
-                        Descrição:
-                        <textarea
-                            type="text"
-                            value={values.descricao}
-                            name="descricao"
-                            onChange= {handleChange}
-                        />
-                    </label>
-                </div>
+                <FormField
+                    label="Descrição: "
+                    type="textarea"
+                    value={values.descricao}
+                    name="descricao"
+                    onChange= {handleChange}
+                />
 
-                <div>
-                    <label>
-                        Cor:
-                        <input
-                            type="color"
-                            value={values.cor}
-                            name="cor"
-                            onChange= {handleChange}
-                        />
-                    </label>
-                </div>
+                <FormField
+                    label="Cor: "
+                    type="color"
+                    value={values.cor}
+                    name="cor"
+                    onChange= {handleChange}
+                    />
                
                 
                 <button >
